@@ -1,0 +1,25 @@
+
+.cartBubble {
+  position: absolute;
+  top: -15px;
+  right: -7px;
+  background-color: #ddd;
+  color: black;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+  transform: rotate(-5deg);
+}
+
+.cartBubble::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 40%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #ddd;
+}
