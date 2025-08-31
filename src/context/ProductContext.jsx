@@ -35,8 +35,8 @@ const initialState = {
     price: "All",
   },
   isSideBarOpen: false,
-  searchQuery:""
-  ,
+  searchQuery: "",
+  cart:[]
 };
 
 // ===== reducer =====
@@ -58,12 +58,13 @@ function reduce(state, action) {
           }),
         },
       };
-      case 'updateSearchQuery':return{
+    case "updateSearchQuery":
+      return {
         ...state,
-        searchQuery:action.payload
-      }
+        searchQuery: action.payload,
+      };
     case "applyFilter": {
-      const { allProducts, selectedFilter,searchQuery} = state;
+      const { allProducts, selectedFilter, searchQuery } = state;
       let filtered = [...allProducts];
       if (selectedFilter.category !== "All") {
         filtered = filtered.filter(
@@ -75,19 +76,78 @@ function reduce(state, action) {
           (item) => item.newPrice === selectedFilter.price
         );
       }
-      if(selectedFilter.color !=="All"){
-        filtered=filtered.filter((item)=> item.color===selectedFilter.color)
+      if (selectedFilter.color !== "All") {
+        filtered = filtered.filter(
+          (item) => item.color === selectedFilter.color
+        );
       }
-      if(selectedFilter.brand !== "All Products"){
-        filtered=filtered.filter((item)=> item.company===selectedFilter.brand)
+      if (selectedFilter.brand !== "All Products") {
+        filtered = filtered.filter(
+          (item) => item.company === selectedFilter.brand
+        );
       }
-      if(searchQuery !==""){
-        filtered=filtered.filter((item)=>item.title.toLowerCase().includes(searchQuery))
+      if (searchQuery !== "") {
+        filtered = filtered.filter((item) =>
+          item.title.toLowerCase().includes(searchQuery)
+        );
       }
       return {
         ...state,
         products: filtered,
       };
+    }
+
+    //cart actions
+    case "cart/addItem": {
+      const existingItem = state.cart.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        return {
+          ...state,
+          cart: state.cart.map((item) =>
+            item.id === action.payload.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+        };
+      }
+      return {
+        ...state,
+        cart: [
+          ...state.cart,
+          { ...action.payload, quantity: 1 },
+        ],
+      };
+    }
+    case "cart/removeItem":
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== action.payload),
+      };
+    case "cart/increaseQuantity":
+      return {
+        ...state,
+        cart: state.cart.map((item) =>
+          item.id === action.payload
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ),
+      };
+    case "cart/decreaseQuantity":
+      return {
+        ...state,
+        cart: state.cart
+          .map((item) =>
+            item.id === action.payload
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter((item) => item.quantity > 0),
+      };
+    case 'cart/clearCart':return{
+      ...state,
+      cart:[]
     }
     default:
       throw new Error("unknown action");
@@ -96,12 +156,26 @@ function reduce(state, action) {
 
 // ===== provider =====
 function ProductProvider({ children }) {
-  const [{ products, filters, isSideBarOpen, selectedFilter,searchQuery }, dispatch] =
-    useReducer(reduce, initialState);
+  const [
+    { products, filters, isSideBarOpen, selectedFilter, searchQuery ,cart},
+    dispatch,
+  ] = useReducer(reduce, initialState);
+  const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const cartTotal = cart.reduce((total, item) => total + (parseFloat(item.newPrice) * item.quantity), 0);
 
   return (
     <ProductContext.Provider
-      value={{ isSideBarOpen, products, selectedFilter, filters,searchQuery, dispatch }}
+      value={{
+        isSideBarOpen,
+        products,
+        selectedFilter,
+        filters,
+        searchQuery,
+        cart,
+        cartItemsCount,
+        cartTotal,
+        dispatch,
+      }}
     >
       {children}
     </ProductContext.Provider>

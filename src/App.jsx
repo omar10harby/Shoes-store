@@ -18,7 +18,7 @@ import { AuthProvider } from "./context/AuthContext";
 function App() {
   return (
     <>
-      <div className="container-fluid  px-4 px-sm-0 ">
+      <div className="container-fluid  px-0 ">
         <AuthProvider>
           <ProductProvider>
             <BrowserRouter>

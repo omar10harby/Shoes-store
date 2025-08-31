@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import {
+  getUser,
   login as loginApi,
   Logout as logoutApi,
   SignUp as signUpApi,
@@ -58,7 +59,7 @@ function reducer(state, action) {
         ...state,
         error: action.payload,
         isLoading: false,
-        isAuthenticated: false,
+        isAuthenticated:false,
         user: null,
       };
     default:
@@ -71,6 +72,24 @@ function AuthProvider({ children }) {
     reducer,
     initalState
   );
+
+    useEffect(() => {
+    async function checkAuth() {
+      try {
+        dispatch({ type: 'loading' });
+        const user = await getUser();
+        if (user) {
+          dispatch({ type: 'user/loaded', payload: user });
+        } else {
+          dispatch({ type: 'rejected', payload: 'No user found' });
+        }
+      } catch (err) {
+        dispatch({ type: 'rejected', payload: err.message });
+      }
+    }
+    checkAuth();
+  }, []);
+
   async function signUp({ email, password, fullName }) {
     try {
       dispatch({ type: "loading" });
