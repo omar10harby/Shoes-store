@@ -10,21 +10,42 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Registar from "./components/Auth/Registar";
 import { Toaster } from "react-hot-toast";
+import Spinner from "./components/Spinner";
+import Cart from "./components/Cart/Cart";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
     <>
-      <div className="container-fluid px-0 ">
-        <ProductProvider>
-          <BrowserRouter>
-             <Routes>
-                <Route index={true} element={<Login/>}/>
-                <Route path="/registar" element={<Registar/>}/>
-                <Route path="/app" element={<LayOut/>}/>
-             </Routes>
-          </BrowserRouter>
-           <Toaster gutter={12}/>
-        </ProductProvider>
+      <div className="container-fluid  px-4 px-sm-0 ">
+        <AuthProvider>
+          <ProductProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route index={true} element={<Login />} />
+                <Route path="registar" element={<Registar />} />
+                <Route
+                  path="app"
+                  element={
+                    <ProtectedRoute>
+                      <LayOut />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="cart"
+                  element={
+                    <ProtectedRoute>
+                      <Cart />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </BrowserRouter>
+            <Toaster gutter={12} />
+          </ProductProvider>
+        </AuthProvider>
       </div>
     </>
   );
