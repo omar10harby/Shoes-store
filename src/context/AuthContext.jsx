@@ -26,8 +26,8 @@ function reducer(state, action) {
       return {
         ...state,
         isLoading: false,
-        isAuthenticated: false, // مش authenticated
-        user: null, // مفيش user محفوظ
+        isAuthenticated: false, 
+        user: null, 
         error: null,
       };
     case "user/loaded":

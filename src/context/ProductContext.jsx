@@ -154,7 +154,6 @@ function reduce(state, action) {
   }
 }
 
-// ===== provider =====
 function ProductProvider({ children }) {
   const [
     { products, filters, isSideBarOpen, selectedFilter, searchQuery ,cart},

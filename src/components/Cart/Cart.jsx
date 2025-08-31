@@ -1,4 +1,3 @@
-// src/components/Cart/Cart.jsx
 import React from 'react';
 import { useProduct } from '../../context/ProductContext';
 import { Minus, Plus, Trash2, ArrowLeft } from 'lucide-react';
