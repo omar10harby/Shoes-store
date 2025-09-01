@@ -38,6 +38,14 @@ function reducer(state, action) {
         isLoading: false,
         error: null,
       };
+       case 'signup/success':
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: false, // مش authenticated
+        user: null, // مفيش user محفوظ
+        error: null,
+      };
     case "user/login":
       return {
         ...state,
@@ -95,6 +103,7 @@ function AuthProvider({ children }) {
       dispatch({ type: "loading" });
       const data = await signUpApi({ email, password, fullName });
       dispatch({ type: "signup/success" });
+      return data
     } catch (error) {
       dispatch({ type: "rejected", payload: error.message });
     }

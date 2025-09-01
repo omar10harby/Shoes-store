@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 function Registar() {
   const navigate = useNavigate();
-  const { signup, isLoading } = useAuth();
+  const { signUp, isLoading } = useAuth();
   
   const {
     register,
@@ -23,15 +23,14 @@ function Registar() {
     }
   });
 
-  // لمراقبة قيمة password عشان نقارنها بـ confirmPassword
   const watchPassword = watch("password");
 
   const onSubmit = async ({fullName,email,password}) => {
     try {
-      await signup(fullName, email, password);
+      await signUp({fullName, email, password});
       toast.success("Account created successfully! Please login.");
-      navigate('/'); // يروح لصفحة login
-      reset(); // مسح الform
+      navigate('/'); 
+      reset(); 
     } catch (error) {
       toast.error( "Registration failed");
     }
