@@ -23,19 +23,21 @@ function Cart() {
   };
 
   return (
-    <div style={{ minHeight: "100vh"}}>
+    <div className="cart-page">
       
       <div className="container py-4">
         {cart.length === 0 ? (
           // Empty Cart
           <div className="text-center py-5">
-            <h2 className="mb-4">Your Cart is Empty</h2>
-            <p className="text-muted mb-4">Add some products to your cart to see them here.</p>
+            <div style={{ fontSize: '4rem', marginBottom: '16px', opacity: 0.2 }}>🛒</div>
+            <h2 className="mb-3" style={{ fontWeight: 700 }}>Your Cart is Empty</h2>
+            <p className="mb-4" style={{ color: '#86868b' }}>Add some products to your cart to see them here.</p>
             <button 
-              className="btn btn-primary"
+              className="btn btn-primary px-4 py-2"
+              style={{ borderRadius: '10px', fontWeight: 600 }}
               onClick={() => navigate('/app')}
             >
-              <ArrowLeft size={20} className="me-2" />
+              <ArrowLeft size={18} className="me-2" />
               Continue Shopping
             </button>
           </div>
@@ -44,13 +46,13 @@ function Cart() {
           <>
             {/* Header */}
             <div className="d-flex justify-content-between align-items-center mb-4">
-              <h2>Shopping Cart ({cart.length} items)</h2>
+              <h2 style={{ fontWeight: 700 }}>Shopping Cart <span style={{ color: '#86868b', fontWeight: 400, fontSize: '1rem' }}>({cart.length} {cart.length === 1 ? 'item' : 'items'})</span></h2>
               <div className="d-flex gap-2">
                 <button 
                   className="btn btn-outline-secondary"
                   onClick={() => navigate('/app')}
                 >
-                  <ArrowLeft size={20} className="me-2" />
+                  <ArrowLeft size={18} className="me-2" />
                   Continue Shopping
                 </button>
                 <button 
@@ -67,22 +69,24 @@ function Cart() {
               <div className="col-lg-8 ">
                 {cart.map((item) => (
                   <div key={item.id} className="card mb-3">
-                    <div className="card-body">
+                    <div className="card-body" style={{ padding: '20px' }}>
                       <div className="row align-items-center gap-2 gap-sm-0">
                         {/* Product Image */}
                         <div className="col-12 text-center col-md-2">
-                          <img 
-                            src={item.img} 
-                            alt={item.title}
-                            className="img-fluid rounded"
-                            style={{ height: '80px', objectFit: 'contain' }}
-                          />
+                          <div style={{ background: '#fafafa', borderRadius: '12px', padding: '8px' }}>
+                            <img 
+                              src={item.img} 
+                              alt={item.title}
+                              className="img-fluid rounded"
+                              style={{ height: '80px', objectFit: 'contain' }}
+                            />
+                          </div>
                         </div>
                         
                         {/* Product Info */}
                         <div className="col-md-4">
-                          <h6 className="card-title mb-1">{item.title}</h6>
-                          <small className="text-muted">
+                          <h6 className="card-title mb-1" style={{ fontWeight: 600 }}>{item.title}</h6>
+                          <small style={{ color: '#86868b' }}>
                             {item.company} • {item.color} • {item.category}
                           </small>
                         </div>
@@ -96,19 +100,21 @@ function Cart() {
                         
                         {/* Quantity Controls */}
                         <div className="col-md-2">
-                          <div className="d-flex align-items-center justify-content-center">
+                          <div className="d-flex align-items-center justify-content-center" style={{ gap: '8px' }}>
                             <button
                               className="btn btn-outline-secondary btn-sm"
+                              style={{ borderRadius: '8px', width: '32px', height: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                               onClick={()=>handleDecreaseQuantity(item.id)}
                             >
-                              <Minus size={16} />
+                              <Minus size={14} />
                             </button>
-                            <span className="mx-3 fw-bold">{item.quantity}</span>
+                            <span className="fw-bold" style={{ minWidth: '24px', textAlign: 'center' }}>{item.quantity}</span>
                             <button
                               className="btn btn-outline-secondary btn-sm"
+                              style={{ borderRadius: '8px', width: '32px', height: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                               onClick={()=>handleIncreaseQuantity(item.id)}
                             >
-                              <Plus size={16} />
+                              <Plus size={14} />
                             </button>
                           </div>
                         </div>
@@ -116,14 +122,15 @@ function Cart() {
                         {/* Total & Remove */}
                         <div className="col-md-2">
                           <div className="text-center">
-                            <div className="fw-bold mb-2">
+                            <div className="fw-bold mb-2" style={{ fontSize: '1.05rem' }}>
                               ${(parseFloat(item.newPrice) * item.quantity).toFixed(2)}
                             </div>
                             <button
                               className="btn btn-outline-danger btn-sm"
+                              style={{ borderRadius: '8px' }}
                               onClick={() => handleRemoveItem(item.id)}
                             >
-                              <Trash2 size={16} />
+                              <Trash2 size={14} />
                             </button>
                           </div>
                         </div>
@@ -135,32 +142,32 @@ function Cart() {
 
               {/* Cart Summary */}
               <div className="col-lg-4">
-                <div className="card sticky-top">
+                <div className="card sticky-top" style={{ top: '20px' }}>
                   <div className="card-header">
                     <h5 className="mb-0">Order Summary</h5>
                   </div>
-                  <div className="card-body">
-                    <div className="d-flex justify-content-between mb-2">
+                  <div className="card-body" style={{ padding: '24px' }}>
+                    <div className="d-flex justify-content-between mb-2" style={{ color: '#555' }}>
                       <span>Subtotal:</span>
                       <span>${cartTotal.toFixed(2)}</span>
                     </div>
-                    <div className="d-flex justify-content-between mb-2">
+                    <div className="d-flex justify-content-between mb-2" style={{ color: '#555' }}>
                       <span>Shipping:</span>
                       <span>$10.00</span>
                     </div>
-                    <div className="d-flex justify-content-between mb-2">
+                    <div className="d-flex justify-content-between mb-2" style={{ color: '#555' }}>
                       <span>Tax:</span>
                       <span>${(cartTotal * 0.1).toFixed(2)}</span>
                     </div>
-                    <hr />
+                    <hr style={{ borderColor: '#e0e0e0' }} />
                     <div className="d-flex justify-content-between mb-3">
-                      <strong>Total:</strong>
-                      <strong>${(cartTotal + 10 + (cartTotal * 0.1)).toFixed(2)}</strong>
+                      <strong style={{ fontSize: '1.1rem' }}>Total:</strong>
+                      <strong style={{ fontSize: '1.1rem' }}>${(cartTotal + 10 + (cartTotal * 0.1)).toFixed(2)}</strong>
                     </div>
-                    <button className="btn btn-primary w-100 mb-2">
+                    <button className="btn btn-primary w-100 mb-2 py-2" style={{ fontWeight: 600 }}>
                       Proceed to Checkout
                     </button>
-                    <button className="btn btn-outline-secondary w-100">
+                    <button className="btn btn-outline-secondary w-100 py-2">
                       Save for Later
                     </button>
                   </div>

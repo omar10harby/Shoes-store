@@ -5,9 +5,10 @@ function MainFilter() {
   const { filters, selectedFilter, dispatch } = useProduct();
 
   return (
-    <div className="d-flex justify-content-center justify-content-md-start  align-items-center gap-3">
+    <div className="d-flex justify-content-center justify-content-md-start align-items-center gap-2 flex-wrap">
       {filters.brand.map((brand) => (
         <button
+          key={brand}
           className={`btn-brand ${selectedFilter.brand===brand? "active":''}`}
           onClick={() =>{
             dispatch({
