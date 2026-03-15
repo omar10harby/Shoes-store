@@ -77,7 +77,7 @@ function SideBarContent() {
                   dispatch({type:'updateFilter',payload:{name:"color",value:e.target.value}}),
                   dispatch({type:'applyFilter'})
                 }}
-                  style={{accentColor:`${color}`}}
+                  style={{accentColor: color}}
                 />
               <label htmlFor={color} className="d-flex align-items-center gap-2">
                 {color !== "All" && (
