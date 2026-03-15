@@ -18,7 +18,7 @@ function SideBar() {
             placement="start"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Filters</Offcanvas.Title>
+              <Offcanvas.Title style={{ fontWeight: 700 }}>Filters</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <SideBarContent />
@@ -26,7 +26,7 @@ function SideBar() {
           </Offcanvas>
         </div>
       ) : (
-        <div className="sidebar col-md-2 bg-light pt-3">
+        <div className="sidebar col-md-2 pt-4 px-3">
           <SideBarContent />
         </div>
       )}

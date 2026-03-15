@@ -7,11 +7,11 @@ function LayOut() {
   const { isOpen } = useProduct();
   return (
     <>
-      <div className="d-flex flex-column" style={{ height: "100vh" }}>
+      <div className="d-flex flex-column" style={{ height: "100vh", background: "#f5f5f7" }}>
         <NavBar />
         <div className="d-flex flex-grow-1 overflow-hidden">
           <SideBar />
-          <div className="main flex-grow-1 overflow-auto px-3">
+          <div className="main flex-grow-1 overflow-auto px-3" style={{ background: "#f5f5f7" }}>
             <Main />
           </div>
         </div>

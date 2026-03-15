@@ -23,37 +23,58 @@ function Product({ img, title, reviews, color, prevPrice, newPrice }) {
   }
   return (
     <div className="ProductCard col-md-6 col-lg-4 col-xl-3 mb-4">
-      <div className="card h-100 shadow-sm">
-        <img
-          src={img}
-          alt="product"
-          className="card-img-top img-fluid px-2"
-          style={{ height: "200px", objectFit: "contain" }}
-        />
-        <div className="card-body d-flex flex-column justify-content-between">
+      <div className="card h-100">
+        <div style={{ background: '#fafafa', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img
+            src={img}
+            alt="product"
+            className="img-fluid"
+            style={{ height: "180px", objectFit: "contain" }}
+          />
+        </div>
+        <div className="card-body d-flex flex-column justify-content-between" style={{ padding: '16px 20px' }}>
           <div className="mb-2">
-            <h5 className="card-title">{title}</h5>
-            <p className="card-text text-muted">
-              {reviews} {color}
+            <h5 className="card-title" style={{ fontSize: '0.95rem', fontWeight: 600, marginBottom: '4px' }}>{title}</h5>
+            <p className="card-text" style={{ fontSize: '0.8rem', color: '#86868b', marginBottom: 0 }}>
+              {reviews}
+              {color && (
+                <span className="ms-2 d-inline-flex align-items-center gap-1">
+                  <span style={{
+                    display: 'inline-block',
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    backgroundColor: color,
+                    border: '1px solid #ddd',
+                  }}></span>
+                  {color}
+                </span>
+              )}
             </p>
           </div>
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center mt-2">
             <p className="mb-0">
               <span
-                className="text-danger me-2"
-                style={{ textDecoration: "line-through" }}
+                className="me-2"
+                style={{ textDecoration: "line-through", color: '#aaa', fontSize: '0.85rem' }}
               >
                 {prevPrice}
               </span>
-              <span style={{ color: "greenyellow" }}>${newPrice}</span>
+              <span style={{ color: '#1d1d1f', fontWeight: 700, fontSize: '1.05rem' }}>${newPrice}</span>
             </p>
             {cart.find((item) => item.title === title) ? (
-              <HiTrash onClick={() => handleRemoveFromCart(cart.find((item)=>item.title === title).id)} strokeWidth={2.25}/>
+              <HiTrash
+                onClick={() => handleRemoveFromCart(cart.find((item)=>item.title === title).id)}
+                strokeWidth={2.25}
+                style={{ cursor: 'pointer', color: '#dc3545', fontSize: '1.3rem' }}
+              />
             ) : (
               <ShoppingBasket
                 onClick={handleAddToCart}
                 className="basket"
                 strokeWidth={2.25}
+                size={20}
+                style={{ cursor: 'pointer', color: '#555', transition: 'color 0.2s ease' }}
               />
             )}
           </div>

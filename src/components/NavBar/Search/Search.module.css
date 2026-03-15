@@ -1,10 +1,20 @@
 .search{
     outline: none;
-    padding: 5px 10px;
-    border-radius: 6px;
-     border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1.5px solid #e0e0e0;
+    background: #f5f5f7;
+    font-size: 0.875rem;
+    color: #1d1d1f;
+    transition: all 0.25s ease;
+    width: 220px;
+}
+.search::placeholder {
+    color: #aaa;
 }
 .search:focus{
-    outline: 1.5px solid #a7a0a0 ;
-    border: 3px solid #ddd;
+    border-color: #1d1d1f;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(29,29,31,0.08);
+    outline: none;
 }

@@ -1,5 +1,15 @@
+.theme {
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    color: #555;
+}
 .theme:hover{
     padding: 4px;
-    background-color: #ddd;
+    background-color: #f0f0f0;
     border-radius: 50%;
+    color: #1d1d1f;
 }

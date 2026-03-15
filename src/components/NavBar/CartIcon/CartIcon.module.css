@@ -1,25 +1,19 @@
 
 .cartBubble {
   position: absolute;
-  top: -15px;
-  right: -7px;
-  background-color: #ddd;
-  color: black;
-  padding: 4px 8px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
-  transform: rotate(-5deg);
+  top: -10px;
+  right: -10px;
+  background-color: #1d1d1f;
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.4;
+  min-width: 18px;
+  text-align: center;
 }
 
 .cartBubble::before {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 40%;
-  transform: translateX(-50%);
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #ddd;
+  display: none;
 }
